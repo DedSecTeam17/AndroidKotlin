@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.kotlinoptionsmenu.MainActivity">
+    <item
+        android:id="@+id/done"
+        android:icon="@drawable/ic_done_black_24dp"
+
+        android:title="@string/done"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_delete_black_24dp"
+
+        app:showAsAction="ifRoom"
+        android:title="@string/delete"/>
+    <item
+        android:id="@+id/update"
+        android:icon="@drawable/ic_mode_edit_black_24dp"
+        android:title="@string/update"
+        app:showAsAction="ifRoom"/>
+
+</menu>

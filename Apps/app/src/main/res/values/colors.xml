@@ -3,4 +3,10 @@
     <color name="colorPrimary">#2d2d2d </color>
     <color name="colorPrimaryDark">#454c51</color>
     <color name="colorAccent">#445666</color>
+<!--    todo app colors-->
+
+    <color name="todoPrimary">#6d4a2b</color>
+    <color name="todoPrimaryDark">#3c341c</color>
+    <color name="todoAccent">#e09a30</color>
+
 </resources>
