@@ -4,12 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "todo_table")
+@Entity(
+    tableName = "todo_table"
+)
 data class TodoModel(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int=0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "title") var title: String?,
     @ColumnInfo(name = "description") var description: String?,
     @ColumnInfo(name = "is_done") var isDone: Boolean?,

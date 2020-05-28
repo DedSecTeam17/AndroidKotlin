@@ -7,6 +7,7 @@
     tools:context=".todo_list_app.TodoActivity">
 
     <RelativeLayout
+        android:background="#222831"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

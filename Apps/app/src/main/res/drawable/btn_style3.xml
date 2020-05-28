@@ -4,7 +4,7 @@
     android:thickness="0dp">
 
 
-    <solid android:color="@color/todoAccent" />
+    <solid android:color="@color/colorPrimary" />
     <corners android:radius="10dp" />
 
 

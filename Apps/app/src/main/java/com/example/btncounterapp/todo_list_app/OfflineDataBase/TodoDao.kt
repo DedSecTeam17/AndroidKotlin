@@ -7,8 +7,10 @@ import com.example.btncounterapp.todo_list_app.Models.TodoModel
 @Dao
 interface TodoDao {
 
+
+    @Transaction
     @Query("SELECT * from todo_table ORDER BY id ASC")
-    fun getAllTodos(): LiveData<List<TodoModel>>
+    fun getAllTodos(): LiveData<List<TodoWithTasks>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(todoModel: TodoModel)

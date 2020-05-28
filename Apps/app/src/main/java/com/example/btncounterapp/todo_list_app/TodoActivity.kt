@@ -19,9 +19,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class TodoActivity : AppCompatActivity() {
 
 
-    var todos: RecyclerView? = null
     var toolbar: Toolbar? = null
     var addTodo: FloatingActionButton? = null
+
+    var todos: RecyclerView? = null
     var mAdapter: TodoListAdapter? = null
 
     lateinit var emptyImage: ImageView
@@ -57,14 +58,15 @@ class TodoActivity : AppCompatActivity() {
 //        toolbar?.title = "Todos"
         todoViewModel.allTodos.observe(this, Observer { todosData ->
 
-            if (todosData.isEmpty())
+            if (todosData.isEmpty()) {
                 emptyImage.visibility = View.VISIBLE
-            else {
+                mAdapter?.setTodos(todosData.map { todoWithTasks -> todoWithTasks.todoModel })
+            } else {
 
                 emptyImage.visibility = View.GONE
 
                 todosData.let {
-                    mAdapter?.setTodos(todosData)
+                    mAdapter?.setTodos(todosData.map { todoWithTasks -> todoWithTasks.todoModel })
 
                 }
             }

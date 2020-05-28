@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".todo_list_app.ShowTodoActivity" android:parentActivityName=".todo_list_app.TodoActivity"></activity>
+        <activity
+            android:name=".todo_list_app.ShowTodoActivity"
+            android:parentActivityName=".todo_list_app.TodoActivity"></activity>
         <activity
             android:name=".todo_list_app.TodoMutationActivity"
             android:parentActivityName=".todo_list_app.TodoActivity" />
@@ -26,6 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".todo_list_app.services.ReminderReciver"
+            android:enabled="true" />
+        <service
+            android:name=".todo_list_app.services.ReminderService"
+            android:enabled="true" />
     </application>
 
 </manifest>

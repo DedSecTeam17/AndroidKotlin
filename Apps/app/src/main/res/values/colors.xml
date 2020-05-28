@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2d2d2d </color>
+    <color name="colorPrimary">#222831 </color>
     <color name="colorPrimaryDark">#454c51</color>
     <color name="colorAccent">#445666</color>
 <!--    todo app colors-->
 
     <color name="todoPrimary">#6d4a2b</color>
     <color name="todoPrimaryDark">#3c341c</color>
-    <color name="todoAccent">#e09a30</color>
+    <color name="todoAccent">#f2a365</color>
+
+    <color name="opactiy_a">#52445666</color>
+    <color name="opactiy_b">#82445666</color>
+
 
 </resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#52e09a30"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/task_done"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:buttonTint="@color/todoAccent"
+            android:checked="true"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/task_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Work out for 2 hours"
+            android:textSize="13sp" />
+
+
+        <ImageView
+            android:id="@+id/update_task"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_edit"
+
+            />
+
+        <ImageView
+            android:id="@+id/delete_task"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+
+            android:src="@drawable/ic_delete_forever_black_24dp"
+
+            />
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -78,7 +78,11 @@ class TodoListAdapter(
     override fun onBindViewHolder(holder: TodoListViewHolder, position: Int) {
         holder.bind(todo = todos.get(position))
 
-
+//        if (position % 2 == 0)
+//            holder.itemView.setBackgroundColor(ctx.resources.getColor(R.color.opactiy_a))
+//        else
+//            holder.itemView.setBackgroundColor(ctx.resources.getColor(R.color.opactiy_b))
+//
 
 
         holder.delete?.setOnClickListener {
