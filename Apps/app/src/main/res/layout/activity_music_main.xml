@@ -23,6 +23,10 @@
         <!-- Main content -->
 
     </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/todoAccent"
+        android:layout_height="0.5dp"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_below="@id/container"
         android:id="@+id/bottom_navigation"

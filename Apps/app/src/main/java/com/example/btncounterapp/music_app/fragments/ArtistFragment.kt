@@ -1,20 +1,24 @@
 package com.example.btncounterapp.music_app.fragments
 
-import android.content.Context
-import android.net.Uri
+import com.example.btncounterapp.music_app.repostory.Responses.models.ArtistResponseItem
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.btncounterapp.R
 import com.example.btncounterapp.music_app.adapters.ArtistListAdapter
 import com.example.btncounterapp.music_app.models.Artist
+import com.example.btncounterapp.music_app.repostory.ApiCalls.ServiceBuilder
 import com.example.btncounterapp.music_app.utls.AppActions
+//import com.example.btncounterapp.music_app.repostory.Responses.ArtistResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,19 +65,37 @@ class ArtistFragment : Fragment() {
     ): View? {
         var view = inflater.inflate(R.layout.fragment_artist, container, false)
         artistRecyclerView = view.findViewById(R.id.artists)
-        artistRecyclerView.apply {
-            layoutManager = GridLayoutManager(activity, 2).apply {
-
-            }
-            adapter = ArtistListAdapter(data = data, action = AppActions.ARTIST)
-
-        }
 
 
+        getData();
 
         return view
     }
 
+
+    fun getData() {
+        ServiceBuilder.musicServiceProvider().getArtists()
+            .enqueue(object : Callback<ArrayList<ArtistResponseItem>> {
+                override fun onFailure(call: Call<ArrayList<ArtistResponseItem>>, t: Throwable) {
+                    Toast.makeText(activity, t.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                override fun onResponse(
+                    call: Call<ArrayList<ArtistResponseItem>>,
+                    response: Response<ArrayList<ArtistResponseItem>>
+                ) {
+//                    response.body().get(0).
+
+                    artistRecyclerView.apply {
+                        layoutManager = GridLayoutManager(activity, 2)
+                        adapter = ArtistListAdapter(data = response.body()!!, action = AppActions.ARTIST)
+
+                    }
+
+                }
+            })
+    }
 
     companion object {
         /**

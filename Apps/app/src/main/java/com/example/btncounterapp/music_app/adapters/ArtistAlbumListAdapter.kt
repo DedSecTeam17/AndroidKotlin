@@ -11,8 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.btncounterapp.R
+import com.example.btncounterapp.music_app.AlbumInfoActivity
 import com.example.btncounterapp.music_app.ArtistInfoActivity
-import com.example.btncounterapp.music_app.models.Artist
+import com.example.btncounterapp.music_app.repostory.ApiCalls.ServiceBuilder
+import com.example.btncounterapp.music_app.repostory.Responses.models.Albums
+import com.google.gson.Gson
 
 
 class ArtistAlbumViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(
@@ -31,14 +34,14 @@ class ArtistAlbumViewHolder(inflater: LayoutInflater, parent: ViewGroup) : Recyc
 
     }
 
-    fun bind(artist: Artist) {
-        title.setText(artist.title)
+    fun bind(album: Albums) {
+        title.setText(album.album_name)
 
 
 
 
         Glide.with(itemView.context)
-            .load("https://images.unsplash.com/photo-1590473905467-736193912561?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max")
+            .load("${ServiceBuilder.baseUrl}${album.album_image_url.get(0).formats?.thumbnail?.url}")
             .thumbnail(0.1f)
             .diskCacheStrategy(DiskCacheStrategy.ALL) //3
 
@@ -49,7 +52,7 @@ class ArtistAlbumViewHolder(inflater: LayoutInflater, parent: ViewGroup) : Recyc
 
 }
 
-class ArtistAlbumListAdapter(var data: List<Artist>) :
+class ArtistAlbumListAdapter(var data: List<Albums>) :
     RecyclerView.Adapter<ArtistAlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistAlbumViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -61,10 +64,11 @@ class ArtistAlbumListAdapter(var data: List<Artist>) :
     }
 
     override fun onBindViewHolder(holder: ArtistAlbumViewHolder, position: Int) {
-        holder.bind(artist = data[position])
+        holder.bind(album = data[position])
 
         holder.itemView.setOnClickListener { view ->
-            var intent: Intent = Intent(view.context, ArtistInfoActivity::class.java)
+            var intent: Intent = Intent(view.context, AlbumInfoActivity::class.java)
+            intent.putExtra("id" ,data[position].id )
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             view.context.startActivity(intent)
         }

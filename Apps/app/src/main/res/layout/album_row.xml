@@ -14,14 +14,23 @@
         android:src="@drawable/place_holder" />
 
     <TextView
-        android:id="@+id/artist_name"
+        android:id="@+id/album_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Alan Waljer"
         android:textColor="#fff"
         android:textSize="17sp"
-        />
+       />
 
+    <TextView
+        android:id="@+id/artist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Alan Waljer"
+        android:textColor="#fff"
+        android:textSize="12sp"
+    />
 
 </LinearLayout>

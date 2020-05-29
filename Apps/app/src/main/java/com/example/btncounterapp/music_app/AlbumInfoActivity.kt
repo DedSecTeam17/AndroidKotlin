@@ -1,21 +1,26 @@
 package com.example.btncounterapp.music_app
 
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.btncounterapp.R
 import com.example.btncounterapp.music_app.adapters.ArtistSongListAdapter
-import com.example.btncounterapp.music_app.adapters.SongListAdapter
-import com.example.btncounterapp.music_app.models.Song
+import com.example.btncounterapp.music_app.repostory.ApiCalls.ServiceBuilder
+import com.example.btncounterapp.music_app.repostory.Responses.models.AlbumResponseItem
+import com.google.gson.Gson
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AlbumInfoActivity : AppCompatActivity() {
 
@@ -30,16 +35,18 @@ class AlbumInfoActivity : AppCompatActivity() {
 
     lateinit var songListAdapter: ArtistSongListAdapter
 
-    var songs = mutableListOf<Song>(
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22"),
-        Song(songName = "Test", duration = "3:22")
+//    var songs = mutableListOf<Song>(
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22"),
+//        Song(songName = "Test", duration = "3:22")
+//
+//    )
 
-    )
+    lateinit var albums: AlbumResponseItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,31 +57,58 @@ class AlbumInfoActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-
         authorImage = findViewById(R.id.author_image)
         albumName = findViewById(R.id.album_name)
-        authorInfo = findViewById(R.id.author_info)
         albumImage = findViewById(R.id.album_image_preview)
 
-        Glide.with(this)
-            .load("https://images.unsplash.com/photo-1590615428797-ad80b4e5f554?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max")
-            .thumbnail(0.1f)
-            .diskCacheStrategy(DiskCacheStrategy.ALL) //3
+        getData(intent.extras?.getInt("id"))
+    }
 
-            .transform(CircleCrop())
-            .into(authorImage)
+    fun getData(id: Int?) {
+        ServiceBuilder.musicServiceProvider().getAlbumInfo(id = id)
+            .enqueue(object : Callback<AlbumResponseItem> {
+                override fun onFailure(call: Call<AlbumResponseItem>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG)
+                        .show()
+                }
 
-        songListAdapter = ArtistSongListAdapter(data = songs)
+                override fun onResponse(
+                    call: Call<AlbumResponseItem>,
+                    response: Response<AlbumResponseItem>
+                ) {
 
-        songsRecyclerView = findViewById(R.id.album_songs)
-        songsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(applicationContext)
-            adapter = songListAdapter
-        }
-        songsRecyclerView.isNestedScrollingEnabled = false
+                    albums = response.body()!!
+                    Glide.with(applicationContext)
+                        .load("${ServiceBuilder.baseUrl}${albums.artist.artist_image_url.get(0).formats?.small?.url}")
+                        .thumbnail(0.1f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) //3
+
+                        .transform(CircleCrop())
+                        .into(authorImage)
+                    albumName.text = albums.album_name
+                    authorInfo = findViewById(R.id.author_info)
+                    authorInfo.text = "${albums.artist.artist_name} . 2020 . 44:55"
+                    Glide.with(applicationContext)
+                        .load("${ServiceBuilder.baseUrl}${albums.album_image_url.get(0).url}")
+                        .thumbnail(0.1f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) //3
+                        .transform(CenterCrop(), RoundedCorners(15))
+
+                        .into(albumImage)
 
 
+//
+
+                    songListAdapter = ArtistSongListAdapter(data = albums.tracks)
+
+                    songsRecyclerView = findViewById(R.id.album_songs)
+                    songsRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(applicationContext)
+                        adapter = songListAdapter
+                    }
+                    songsRecyclerView.isNestedScrollingEnabled = false
+
+                }
+            })
     }
 }

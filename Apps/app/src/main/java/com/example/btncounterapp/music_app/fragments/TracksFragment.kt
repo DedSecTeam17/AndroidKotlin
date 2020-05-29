@@ -6,13 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.btncounterapp.R
+import com.example.btncounterapp.music_app.adapters.AlbumListAdapter
 import com.example.btncounterapp.music_app.adapters.SongListAdapter
 import com.example.btncounterapp.music_app.models.Artist
 import com.example.btncounterapp.music_app.models.Song
+import com.example.btncounterapp.music_app.repostory.ApiCalls.ServiceBuilder
+import com.example.btncounterapp.music_app.repostory.Responses.models.AlbumResponseItem
+import com.example.btncounterapp.music_app.repostory.Responses.models.TrackResponseItem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,12 +68,33 @@ class TracksFragment : Fragment() {
 
         var view = inflater.inflate(R.layout.fragment_tracks, container, false)
         tracksRecyclerView = view.findViewById(R.id.tracks)
-        tracksAdapter = SongListAdapter(data = songs)
-        tracksRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = tracksAdapter
-        }
+//        tracksAdapter =
+
+        getData()
         return view
+    }
+
+    fun getData() {
+        ServiceBuilder.musicServiceProvider().getTracks()
+            .enqueue(object : Callback<ArrayList<TrackResponseItem>> {
+                override fun onFailure(call: Call<ArrayList<TrackResponseItem>>, t: Throwable) {
+                    Toast.makeText(activity, t.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                override fun onResponse(
+                    call: Call<ArrayList<TrackResponseItem>>,
+                    response: Response<ArrayList<TrackResponseItem>>
+                ) {
+//                    response.body().get(0).
+
+                    tracksRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = SongListAdapter(data = response.body()!!)
+                    }
+
+                }
+            })
     }
 
 

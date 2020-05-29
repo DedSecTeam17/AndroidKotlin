@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.btncounterapp.R
 import com.example.btncounterapp.music_app.TrackPlayerActivity
-import com.example.btncounterapp.music_app.models.Song
+import com.example.btncounterapp.music_app.repostory.Responses.models.Tracks
 
 
 class ArtistSongListViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
@@ -28,15 +28,15 @@ class ArtistSongListViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
 
     }
 
-    fun bind(song: Song) {
-        songName.setText(song.songName)
-        songDuration.setText(song.duration)
+    fun bind(song: Tracks) {
+        songName.setText(song.track_name)
+        songDuration.setText("2:10")
 
     }
 
 }
 
-class ArtistSongListAdapter(var data: List<Song>) :
+class ArtistSongListAdapter(var data: List<Tracks>) :
     RecyclerView.Adapter<ArtistSongListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistSongListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -52,6 +52,7 @@ class ArtistSongListAdapter(var data: List<Song>) :
         holder.itemView.setOnClickListener { view ->
             var intent: Intent = Intent(view.context, TrackPlayerActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.putExtra("id", data[position].id)
             view.context.startActivity(intent)
         }
     }

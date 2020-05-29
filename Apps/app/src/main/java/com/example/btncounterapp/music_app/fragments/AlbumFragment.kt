@@ -6,13 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.example.btncounterapp.R
+import com.example.btncounterapp.music_app.adapters.AlbumListAdapter
 import com.example.btncounterapp.music_app.adapters.ArtistListAdapter
 import com.example.btncounterapp.music_app.models.Artist
+import com.example.btncounterapp.music_app.repostory.ApiCalls.ServiceBuilder
+import com.example.btncounterapp.music_app.repostory.Responses.models.AlbumResponseItem
+import com.example.btncounterapp.music_app.repostory.Responses.models.ArtistResponseItem
 import com.example.btncounterapp.music_app.utls.AppActions
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,17 +65,38 @@ class AlbumFragment : Fragment() {
 
         var view = inflater.inflate(R.layout.fragment_album, container, false)
         albumRecyclerView = view.findViewById(R.id.albums)
-        albumRecyclerView.apply {
-            layoutManager = GridLayoutManager(activity, 2).apply {
 
-            }
-            adapter = ArtistListAdapter(data = data, action = AppActions.ALBUM)
 
-        }
-
+        getData()
         return view
     }
 
+
+    fun getData() {
+        ServiceBuilder.musicServiceProvider().getAlbums()
+            .enqueue(object : Callback<ArrayList<AlbumResponseItem>> {
+                override fun onFailure(call: Call<ArrayList<AlbumResponseItem>>, t: Throwable) {
+                    Toast.makeText(activity, t.message, Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                override fun onResponse(
+                    call: Call<ArrayList<AlbumResponseItem>>,
+                    response: Response<ArrayList<AlbumResponseItem>>
+                ) {
+
+
+                    albumRecyclerView.apply {
+                        layoutManager = GridLayoutManager(activity, 2).apply {
+
+                        }
+                        adapter = AlbumListAdapter(data = response.body()!!)
+
+                    }
+
+                }
+            })
+    }
 
     companion object {
         /**
