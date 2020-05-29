@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".music_app.TrackPlayerActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlHolder"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+
+        <LinearLayout
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/album_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="20dp"
+
+                android:scaleType="fitXY"
+                android:src="@drawable/album_img" />
+
+        </LinearLayout>
+
+        <!--      player go here -->
+        <LinearLayout
+            android:id="@+id/llPlayer"
+            android:layout_below="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <com.google.android.exoplayer2.ui.PlayerControlView
+                android:id="@+id/player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:controller_layout_id="@layout/custom_ctrl"
+                app:played_color="@color/todoAccent"
+                app:show_timeout="0" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

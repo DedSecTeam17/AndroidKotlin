@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+      android:id="@id/exo_content_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+
+      android:background="#b3332e48">
+
+    <!-- Video surface will be inserted as the first child of the content frame. -->
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bg_image"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+<!--          <de.hdodenhof.circleimageview.CircleImageView-->
+<!--              android:id="@+id/civPicture"-->
+<!--              android:layout_width="50dp"-->
+<!--              android:layout_height="50dp"-->
+<!--              android:layout_alignParentRight="true"-->
+<!--              android:layout_marginTop="@dimen/padding_10"-->
+<!--              android:src="@drawable/profileimg" />-->
+
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:layout_weight="1"
+              android:gravity="center_vertical|center_horizontal"
+              android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxEms="10"
+                android:singleLine="false"
+                android:text="Day Of The Dispair"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="The Beat"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="#9fff"
+                android:visibility="gone" />
+
+          </LinearLayout>
+
+<!--          <ImageView-->
+<!--              android:id="@+id/ivShare"-->
+<!--              android:layout_width="?attr/actionBarSize"-->
+<!--              android:layout_height="?attr/actionBarSize"-->
+<!--              android:layout_marginTop="5dp"-->
+<!--              android:padding="17dp"-->
+<!--              app:srcCompat="@drawable/ic_share_button" />-->
+        </LinearLayout>
+
+
+        <!--      player go here -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+          <View
+              android:id="@id/exo_controller_placeholder"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+      </RelativeLayout>
+
+      <FrameLayout
+          android:id="@+id/flBottomSheet"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_behavior="@string/bottom_sheet_behavior" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <com.google.android.exoplayer2.ui.SubtitleView
+        android:id="@id/exo_subtitles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+  </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
+
+
+</merge>

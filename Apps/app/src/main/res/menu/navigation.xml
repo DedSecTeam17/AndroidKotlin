@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="example.javatpoint.com.kotlinoptionsmenu.MainActivity">
+    <item
+        android:id="@+id/artist"
+        android:icon="@drawable/ic_face_black_24dp"
+
+        android:title="@string/artist"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/album"
+        android:icon="@drawable/ic_album_black_24dp"
+        android:title="@string/albums"
+        app:showAsAction="ifRoom" />
+
+
+    <item
+        android:id="@+id/tracks"
+        android:icon="@drawable/ic_audiotrack_black_24dp"
+
+        android:title="@string/tracks"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

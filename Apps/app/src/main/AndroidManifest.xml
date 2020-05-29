@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,16 +17,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".music_app.TrackPlayerActivity"></activity>
+        <activity
+            android:name=".music_app.AlbumInfoActivity"
+            android:parentActivityName=".music_app.MusicMainActivity" />
+        <activity android:name=".AlbumInfoActivity" />
+        <activity
+            android:name=".music_app.ArtistInfoActivity"
+            android:parentActivityName=".music_app.MusicMainActivity" />
+        <activity android:name=".todo_list_app.TodoActivity" />
         <activity
             android:name=".todo_list_app.ShowTodoActivity"
-            android:parentActivityName=".todo_list_app.TodoActivity"></activity>
+            android:parentActivityName=".todo_list_app.TodoActivity" />
         <activity
             android:name=".todo_list_app.TodoMutationActivity"
             android:parentActivityName=".todo_list_app.TodoActivity" />
         <activity android:name=".calculator_app.CalculatorActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".camera_app.CameraActivity" />
-        <activity android:name=".todo_list_app.TodoActivity">
+        <activity android:name=".music_app.MusicMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,6 +46,7 @@
         <receiver
             android:name=".todo_list_app.services.ReminderReciver"
             android:enabled="true" />
+
         <service
             android:name=".todo_list_app.services.ReminderService"
             android:enabled="true" />
