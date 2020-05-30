@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Calculator </string>
+    <string name="app_name">MixMax  </string>
     <string name="calculate">Calculate</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -12,4 +12,9 @@
     <string name="albums">Albums</string>
     <string name="tracks">Tracks</string>
     <string name="songs">Songs</string>
+
+    <string name="alhan_channel">Alhan Channel</string>
+    <string name="alhan_description">Alhan description</string>
+
+
 </resources>
