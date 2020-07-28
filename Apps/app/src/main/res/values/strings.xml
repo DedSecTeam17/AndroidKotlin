@@ -15,6 +15,7 @@
 
     <string name="alhan_channel">Alhan Channel</string>
     <string name="alhan_description">Alhan description</string>
+    <string name="title_activity_map">Map</string>
 
 
 </resources>
